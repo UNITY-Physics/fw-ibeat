@@ -8,19 +8,14 @@
 [FAQ](#faq)
 
 ### Summary
-A hybrid CNN and state-space model (SSM) architecture featuring a novel 3D to 1D serialisation (GAMBAS), which learns long-range context without sacrificing spatial precision. The model is trained on peadiatric Hyperfine Swoop scans from low- and middle-income countries (LMICs), providing super-resolution of ultra-low-field MRI data. 
+iBEAT V2.0 is a toolbox for processing pediatric brain MR images, using multimodality (including T1w and T2w) or single-modality. The software is developed by the Developing Brain Computing Lab, and the Brain Research through Analysis and Informatics of Neuroimaging (BRAIN) Lab in the University of North Carolina at Chapel Hill. iBEAT was first developed in 2012 (led by Dr. Dinggang Shen), now re-developed with more advanced techniques (led by Dr. Li Wang and Dr. Gang Li). 
 
-The output file labels are based on the BIDS standard, taking the input file name and appending the appropriate suffixes. For example if the input file is `sub-01_ses-01_T2w_AXI.nii.gz`, the output files will be named `sub-01_ses-01_acq-T2w_AXI_rec-gambas.nii.gz`
-
-### Cite
 
 **license:**
 
 
-**url:** <https://github.com/levente-1/GAMBAS/tree/fw-dev>
+**url:** <https://github.com/UNITY-Physics/fw-ibeat>
 
-**cite:**  
-Baljer, L., Zhang, Y., Bourke, N.J., Donald, K.A., Bradford, L.E., Ringshaw, J.E., Williams, S.R., Deoni, S.C.L., Williams, S.C.R., , Váša, F. and Moran, R.J. (2025), Ultra-Low-Field Paediatric MRI in Low- and Middle-Income Countries: Super-Resolution Using a Multi-Orientation U-Net. Hum Brain Mapp, 46: e70112. https://doi.org/10.1002/hbm.70112
 
 ### Classification
 
@@ -96,7 +91,6 @@ container.
 
 #### File Specifications
 
-The model is trained on axial input for 3 months - 3 years old children. Use of scans from older children or planes is not recommended currently. New models are being trained to accommodate these variations.
 
 #### GPU Usage
 The default configuration for this gear is to use a CPU. This will perform super-resolution with a residual convolutiona neural network (RCNN). GPU can be enabled by setting the `tag` to `gpu` in the gear configuration. This will perform super-resolution with a 3D U-Net. Performance will be faster and the output will be of higher quality. 
@@ -125,13 +119,32 @@ Description of workflow
 2. Prepare data by running the following gears:
    1. file classifier
    2. dcm2niix
-3. Run the GAMBAS gear
+3. Run the iBEAT gear
 4. Output data is saved in the container
 
 ### Use Cases
-
 - Super-resolution of ultra-low-field peadiatric MRI data
-- Only and axial acquisition has passed QC a super-resoloved image can be generated
+
+# How to Cite?
+Please cite the following papers if you use the results provided by the iBEAT V2.0 pipeline:
+* L. Wang, Z. Wu, L. Chen, Y. Sun, W. Lin, G. Li, "[iBEAT V2. 0: a multisite-applicable, deep learning-based pipeline for infant cerebral cortical surface reconstruction](10.1038/s41596-023-00806-x)," Nature Protocol, vol. 18(5), 2023, pp. 1488-1509. 
+* L. Wang, G. Li, F. Shi, X. Cao, C. Lian, D. Nie, et al., "[Volume-based analysis of 6-month-old infant brain MRI for autism biomarker identification and early diagnosis](https://pubmed.ncbi.nlm.nih.gov/30430147/)," in International Conference on Medical Image Computing and Computer-Assisted Intervention, 2018, pp. 411-419.
+* G. Li, J. Nie, L. Wang, F. Shi, J. H. Gilmore, W. Lin, et al., "[Measuring the dynamic longitudinal cortex development in infants by reconstruction of temporally consistent cortical surfaces](https://pubmed.ncbi.nlm.nih.gov/24374075/)," Neuroimage, vol. 90, pp. 266-279, 2014.
+* G. Li, L. Wang, P.-T. Yap, F. Wang, Z. Wu, Y. Meng, et al., "[Computational neuroanatomy of baby brains: A review](https://pubmed.ncbi.nlm.nih.gov/29574033/)," NeuroImage, vol. 185, pp. 906-925, 2018.
+* G. Li, L. Wang, F. Shi, J. Gilmore, W. Lin, D. Shen, "[Construction of 4D high-definition cortical surface atlases of infants: Methods and applications](https://pubmed.ncbi.nlm.nih.gov/25980388/)," Medical Image Analysis, 25: 22-36, 2015.
+
+# Contacts
+The iBEAT V2.0 software is developed by the University of North Carolina at Chapel Hill:
+* Volume-based analysis was designed in the Developing Brain Computing Lab, led by Dr. Li Wang (li_wang@med.unc.edu);
+* Surface-based analysis was designed in the Brain Research through Analysis and Informatics of Neuroimaging (BRAIN) Lab, led by Dr. Gang Li (gang_li@med.unc.edu).
+
+For questions/bugs/feedback, please contact:
+
+Zhengwang Wu, Ph.D.,  zhwwu@med.unc.edu\
+Li Wang, Ph.D.,  li_wang@med.unc.edu\
+Gang Li, Ph.D.,  gang_li@med.unc.edu\
+Department of Radiology and Biomedical Research Imaging Center\
+The University of North Carolina at Chapel Hill
 
 ## FAQ
 
