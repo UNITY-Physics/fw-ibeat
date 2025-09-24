@@ -1,0 +1,99 @@
+{
+  "author": "Niall Bourke",
+  "cite": "L. Wang, Z. Wu, L. Chen, Y. Sun, W. Lin, G. Li, iBEAT V2. 0: a multisite-applicable, deep learning-based pipeline for infant cerebral cortical surface reconstruction, Nature Protocol, vol. 18(5), 2023, pp. 1488-1509",
+  "command": "python /flywheel/v0/run.py",
+  "config": {
+    "align_type": {
+      "type": "boolean",
+      "default": false,
+      "description": "Only use when two modality are inputed. If =0, then the t2 modality will not align to t1 modality, assuming the t2 and t1 has been aligned"
+    },
+    "skullstripping": {
+      "type": "boolean",
+      "default": true,
+      "description": "--skull_type: Whether need to do the skullstripping or not. If =0, will skip the skullstripping, assuming the input brain has done the skullstripping.If =1 (default), will do the skull stripping using the pipeline."
+    },
+    "which_epoch": {
+      "type": "string",
+      "default": "latest",
+      "description": "Which epoch to load"
+    },
+    "stride_inplane": {
+      "type": "integer",
+      "default": 32,
+      "description": "Stride size in 2D plane"
+    },
+    "age": {
+      "type": "integer",
+      "default": 12,
+      "description": "Age of the subject in months"
+    }
+  },
+  "custom": {
+    "analysis-level": "participant",
+    "flywheel": {
+      "classification": {
+        "components": [],
+        "keywords": [
+          "super-resolution",
+          "volume",
+          "template"
+        ],
+        "modality": [
+          "MR"
+        ],
+        "type": [
+          "nifti"
+        ]
+      },
+      "suite": "UNITY Apps"
+    },
+    "gear-builder": {
+      "category": "analysis",
+      "image": "flywheel/ibeat_v2:0.0.1"
+
+    },
+    "kcl-app-binary": "app/main.sh",
+    "kcl-app-modalities": [
+      "anat"
+    ],
+    "license": {
+      "dependencies": [],
+      "main": {
+        "name": "",
+        "url": ""
+      },
+      "non-commercial-use-only": false
+    }
+  },
+  "description": "Flywheel gear for iBEAT V2.0 - a deep learning-based pipeline for infant cerebral cortical surface reconstruction",
+  "environment": {
+    "FLYWHEEL": "/flywheel/v0",
+    "LANG": "C.UTF-8",
+    "PWD": "/flywheel/v0",
+    "OS": "Linux"
+  },
+  "inputs": {
+    "api-key": {
+      "base": "api-key",
+      "read-only": true
+    },
+    "t2": {
+      "base": "file",
+      "description": "T2w input file (usually axial or isotropic reconstruction)",
+      "optional": false
+    },
+    "t1": {
+      "base": "file",
+      "description": "T1w input file",
+      "optional": true
+    }
+  },
+  "label": "ibeat_v2",
+  "license": "MIT",
+  "maintainer": "Niall Bourke <niall.bourke@kcl.ac.uk>",
+  "name": "ibeat_v2",
+  "source": "https://github.com/iBEAT-V2/iBEAT-V2.0-Docker",
+  "url": "",
+  "version": "0.0.1"
+}
