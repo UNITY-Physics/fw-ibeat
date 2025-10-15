@@ -1,8 +1,8 @@
 #!/usr/bin/env bash 
 
-GEAR=fw-gambas
-IMAGE=flywheel/gambas:0.4.15
-LOG=gambas-0.4.15-6894be1e75796cf2e4da8cc4
+GEAR=fw-iBEAT
+IMAGE=flywheel/ibeat2:0.1.1
+LOG=ibeat2-0.1.1-68edf10819decb5e72ca2248
 
 # Command:
 docker run -it --rm --entrypoint bash\

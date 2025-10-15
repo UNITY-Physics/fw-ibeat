@@ -4,6 +4,7 @@
 ## Overview
 
 [Usage](#usage)
+Requires gpu: yes
 
 [FAQ](#faq)
 

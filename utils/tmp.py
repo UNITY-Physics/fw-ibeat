@@ -5,7 +5,8 @@ import pandas as pd
 import subprocess
 from pathlib import Path
 
-from run import OUT_DIR, WORK_DIR
+WORK_DIR=Path("/Users/nbourke/GD/atom/unity/fw-gears/fw-iBEAT/ibeat2-0.1.1-68edf10819decb5e72ca2248/work")
+OUT_DIR=Path("/Users/nbourke/GD/atom/unity/fw-gears/fw-iBEAT/ibeat2-0.1.1-68edf10819decb5e72ca2248/output")
 
 log = logging.getLogger(__name__)
 
@@ -28,13 +29,13 @@ def get_tissue_volume(tissue_file, lower, upper):
         raise
 
 
-def housekeeping(demographics):
+def housekeeping():
     """Process tissue volumes and save measurements."""
     
-    acq = demographics['acquisition'].values[0]
-    subject = demographics['subject'].values[0]
-    session = demographics['session'].values[0]
-    
+    acq = "t2"
+    subject = "sub-01"
+    session = "ses-01"
+
     tissue_file = WORK_DIR / "T2-iso-skullstripped-tissue.nii.gz"
     subcortical_file = WORK_DIR / "T2-iso-skullstripped-subcortical-segmentation.nii.gz"
 
@@ -102,3 +103,6 @@ def housekeeping(demographics):
     else:
         df.to_csv(csv_path, index=False)
         log.info(f"Created measurements file: {csv_path}")
+
+# run 
+housekeeping()
