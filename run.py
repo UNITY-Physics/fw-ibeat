@@ -91,7 +91,13 @@ def main(context: GearToolkitContext) -> None:
         "T2-skullstripped.nii.gz",
         "T1-iso-skullstripped-tissue.nii.gz",
         "T1-iso-skullstripped-subcortical-segmentation.nii.gz",
-        "T1-skullstripped.nii.gz"
+        "T1-skullstripped.nii.gz",
+        "T2-iso-skullstripped-rmcere-tissue.lh.InnerSurf.PhysicalSpace.vtk",
+        "T2-iso-skullstripped-rmcere-tissue.lh.MiddleSurf.PhysicalSpace.vtk",
+        "T2-iso-skullstripped-rmcere-tissue.lh.OuterSurf.PhysicalSpace.vtk",
+        "T2-iso-skullstripped-rmcere-tissue.rh.InnerSurf.PhysicalSpace.vtk",
+        "T2-iso-skullstripped-rmcere-tissue.rh.MiddleSurf.PhysicalSpace.vtk",
+        "T2-iso-skullstripped-rmcere-tissue.rh.OuterSurf.PhysicalSpace.vtk",
     ]
 
     for filename in specific_files:
