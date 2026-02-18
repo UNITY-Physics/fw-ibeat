@@ -1,8 +1,8 @@
 #!/usr/bin/env bash 
 
 GEAR=fw-iBEAT
-IMAGE=flywheel/ibeat2:0.1.1
-LOG=ibeat2-0.1.1-68edf10819decb5e72ca2248
+IMAGE=flywheel/ibeat2:0.1.7
+LOG=ibeat2-0.1.7-68f21ef4d582c4bc28ca6c90
 
 # Command:
 docker run -it --rm --entrypoint bash\

@@ -5,7 +5,8 @@ import pandas as pd
 import subprocess
 from pathlib import Path
 
-from run import OUT_DIR, WORK_DIR
+WORK_DIR = Path("/flywheel/v0/work")
+OUT_DIR = Path("/flywheel/v0/output")
 
 log = logging.getLogger(__name__)
 
@@ -34,15 +35,22 @@ def housekeeping(demographics):
     acq = demographics['acquisition'].values[0]
     subject = demographics['subject'].values[0]
     session = demographics['session'].values[0]
-    
-    tissue_file = WORK_DIR / "T2-iso-skullstripped-tissue.nii.gz"
-    subcortical_file = WORK_DIR / "T2-iso-skullstripped-subcortical-segmentation.nii.gz"
 
-    # Check if tissue file exists
-    if not tissue_file.exists():
-        log.error(f"Tissue file not found: {tissue_file}")
-        raise FileNotFoundError(f"Required file missing: {tissue_file}")
-    
+    # Find files recursively within WORK_DIR
+    tissue_candidates = list(WORK_DIR.rglob("T2-iso-skullstripped-tissue.nii.gz"))
+    subcortical_candidates = list(WORK_DIR.rglob("T2-iso-skullstripped-subcortical-segmentation.nii.gz"))
+
+    if not tissue_candidates:
+        log.error(f"Tissue file not found under {WORK_DIR}")
+        raise FileNotFoundError(f"Required file missing: {WORK_DIR}/**/T2-iso-skullstripped-tissue.nii.gz")
+
+    tissue_file = tissue_candidates[0]
+    subcortical_file = subcortical_candidates[0] if subcortical_candidates else None
+
+    log.info(f"Using tissue file: {tissue_file}")
+    if subcortical_file:
+        log.info(f"Using subcortical file: {subcortical_file}")
+
     log.info("Calculating tissue volumes...")
     
     # Get tissue volumes
@@ -51,7 +59,7 @@ def housekeeping(demographics):
     wm_vol = get_tissue_volume(tissue_file, 2.5, 3.5)
 
     # Add subcortical GM volume if file exists
-    if subcortical_file.exists():
+    if subcortical_file:
         subcortical_gm_vol = get_tissue_volume(subcortical_file, 0.5, 13.5)
         lh_thalamus_vol = get_tissue_volume(subcortical_file, 1.5, 2.5)
         lh_caudate_vol = get_tissue_volume(subcortical_file, 2.5, 3.5)

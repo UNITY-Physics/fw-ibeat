@@ -26,7 +26,9 @@ RUN /opt/gear-env/bin/pip install --upgrade pip && \
 # Copy in gear metadata and wrapper
 COPY ./manifest.json /flywheel/v0/manifest.json
 COPY ./run.py /flywheel/v0/run.py
+COPY ./utils /flywheel/v0/utils
 ADD ./shared /flywheel/v0/shared
+
 
 RUN rm -rf /tmp/* /var/tmp/*
 
@@ -38,6 +40,7 @@ RUN which pip3
 
 RUN python --version && python3 --version
 
+RUN apt-get update && apt-get install -y zip && rm -rf /var/lib/apt/lists/*
 # ---------------------------------
 
 # Flywheel requires entrypoint through wrapper

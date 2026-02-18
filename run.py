@@ -4,6 +4,7 @@ import logging
 import shutil
 import subprocess
 from pathlib import Path
+import sys
 from shared.utils.curate_output import demo
 from utils.parser import housekeeping
 
@@ -13,7 +14,7 @@ from flywheel_gear_toolkit import GearToolkitContext
 # The gear is split up into 2 main components. The run.py file which is executed
 # when the container runs. The run.py file then imports the rest of the gear as a
 # module.
-
+sys.stdout.reconfigure(line_buffering=True)
 log = logging.getLogger(__name__)
 
 WORK_DIR = Path("/flywheel/v0/work")
@@ -70,12 +71,18 @@ def main(context: GearToolkitContext) -> None:
     subprocess.run(cmd, check=True)
 
 
+    print("All NIfTI outputs:")
+    for p in WORK_DIR.rglob("*.nii.gz"):
+        print(p)
+        
     # Handle outputs
     # Zip all output files
     subject = demographics['subject'].iloc[0]
     session = demographics['session'].iloc[0]
     zip_path = OUT_DIR / f"sub-{subject}_ses-{session}_iBEAT_outputs"
-    shutil.make_archive(str(zip_path), 'zip', WORK_DIR)
+    # shutil.make_archive(str(zip_path), 'zip', WORK_DIR)
+    # Zip all output files
+    subprocess.run(["zip", "-r", f"{zip_path}.zip", "."], check=True, cwd=WORK_DIR)
 
     # Copy specific files with BIDS naming
     specific_files = [
@@ -88,14 +95,14 @@ def main(context: GearToolkitContext) -> None:
     ]
 
     for filename in specific_files:
-        source = WORK_DIR / filename
-        if source.exists():
-            # Keep the full filename as the description (minus .nii.gz)
+        found_files = list(WORK_DIR.rglob(filename))
+        if found_files:
+            source = found_files[0]
             desc = filename.replace(".nii.gz", "")
             dest = OUT_DIR / f"sub-{subject}_ses-{session}_desc-{desc}.nii.gz"
             shutil.copy2(source, dest)
         else:
-            print(f"Warning: {filename} not found in {WORK_DIR}")
+            print(f"Warning: {filename} not found under {WORK_DIR}")
 
     # Call the parser to handle derived metrics
     housekeeping(demographics)

@@ -31,7 +31,7 @@
     },
     "gear-builder": {
       "category": "analysis",
-      "image": "flywheel/ibeat2:0.1.2"
+      "image": "flywheel/ibeat2:0.1.8"
     },
     "kcl-app-binary": "app/main.sh",
     "kcl-app-modalities": [
@@ -121,5 +121,5 @@
   "name": "ibeat2",
   "source": "https://github.com/iBEAT-V2/iBEAT-V2.0-Docker",
   "url": "",
-  "version": "0.1.2"
+  "version": "0.1.8"
 }
